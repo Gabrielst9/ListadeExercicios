@@ -4,27 +4,62 @@
     {
         static void Main(string[] args)
         {
-            float comprimento = default;
-            float largura = default;
-            float altura = default;
-            float resultado = default;
+            decimal comprimento, largura, altura, volume;
 
             while (true)
             {
-                Console.WriteLine("Calculadora de Volume");
+                Console.WriteLine("\n Calculadora de Volume");
 
-                Console.WriteLine("Digite o valor do comprimento da caixa:");
-                comprimento = float.Parse(Console.ReadLine());
+                comprimento = ObterNumeroDecimal("Digite o valor do comprimento: ");
 
-                Console.WriteLine("Digite o valor da largura:");
-                largura = float.Parse(Console.ReadLine());
+                Console.WriteLine();
+                largura = ObterNumeroDecimal("Digite o valor da largura:");
 
-                Console.WriteLine("Digite o valor da altura:");
-                altura = float.Parse(Console.ReadLine());
+                Console.WriteLine();
+                altura = ObterNumeroDecimal("Digite o valor da altura: ");
 
-                resultado = comprimento * largura * altura;
+                volume = CalculaVolume(comprimento, largura, altura);
 
-                Console.WriteLine($"O volume da caixa é: {resultado}");
+                ExibirResultado(volume);
+
+                DesejaContinuar("\n Deseja Continuar? (S/N)");
+            }
+        }
+
+        private static void ExibirResultado(decimal resultado)
+        {
+            Console.WriteLine($"O volume da caixa é: {resultado}");
+        }
+
+        static decimal ObterNumeroDecimal(string texto)
+        { 
+            Console.WriteLine(texto);
+
+            decimal numeroDigitado = decimal.Parse(Console.ReadLine());
+            
+            return numeroDigitado;
+        }
+
+        static decimal CalculaVolume(decimal comprimento, decimal largura, decimal altura)
+        {
+            return comprimento * largura * altura;
+        }
+
+        static void DesejaContinuar(string resposta)
+        {
+            Console.WriteLine(resposta);
+
+            string verifica = Console.ReadLine().ToUpper();
+
+            while (verifica != "S" && verifica != "N")
+            {
+                Console.WriteLine("\n Opção inválida. Digite S para continuar ou N para sair.");
+                verifica = Console.ReadLine().ToUpper();
+            }
+
+            if (verifica == "N")
+            {
+                Environment.Exit(0);
             }
         }
     }
